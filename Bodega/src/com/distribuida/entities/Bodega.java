@@ -1,10 +1,13 @@
 package com.distribuida.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -19,24 +22,32 @@ public class Bodega {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column (name = "id_bodegas")
 	private int idBodegas;
-	@Column (name ="nombre")
+	@Column (name ="Nombre")
 	private String Nombre;
-	@Column (name ="ubicacion")
+	@Column (name ="Ubicación")
 	private String Ubicacion;
-	@Column (name ="capacidad")
+	@Column (name ="Capacidad")
 	private int Capacidad;
+	
 	@Column (name ="idSucursales")
 	private int idSucurales;
 	
+//	@JoinColumn(name= "idSucursales")
+//	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+//	private Sucursales sucursal;
+	
+	
+	
+	
 	public Bodega() {}
 
-	public Bodega(int idBodegas, String nombre, String ubicacion, int capacidad, int idSucurales) {
-		super();
+	public Bodega(int idBodegas, String nombre, String ubicacion, int capacidad) {
+		
 		this.idBodegas = idBodegas;
-		Nombre = nombre;
-		Ubicacion = ubicacion;
-		Capacidad = capacidad;
-		this.idSucurales = idSucurales;
+		this.Nombre = nombre;
+		this.Ubicacion = ubicacion;
+		this.Capacidad = capacidad;
+		//this.idSucurales = idSucurales;
 	}
 
 	public int getIdBodegas() {
@@ -52,7 +63,7 @@ public class Bodega {
 	}
 
 	public void setNombre(String nombre) {
-		Nombre = nombre;
+		this.Nombre = nombre;
 	}
 
 	public String getUbicacion() {
@@ -60,7 +71,7 @@ public class Bodega {
 	}
 
 	public void setUbicacion(String ubicacion) {
-		Ubicacion = ubicacion;
+		this.Ubicacion = ubicacion;
 	}
 
 	public int getCapacidad() {
@@ -68,16 +79,19 @@ public class Bodega {
 	}
 
 	public void setCapacidad(int capacidad) {
-		Capacidad = capacidad;
+		this.Capacidad = capacidad;
 	}
 
 	public int getIdSucurales() {
 		return idSucurales;
 	}
 
+	// Inyección de dependencias (dato temporal) luego se aplicará DI en el entitie "Sucursal"
 	public void setIdSucurales(int idSucurales) {
 		this.idSucurales = idSucurales;
 	}
+	
+	
 
 	@Override
 	public String toString() {
